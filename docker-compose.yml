@@ -8,7 +8,7 @@ services:
         container_name: azapfy-app
         restart: unless-stopped
         environment:
-            TOKEN: ${TOKEN}
+            DOPPLER_TOKEN: ${TOKEN}
         ports:
             - "${APP_PORT_NGINX:-8000}:80"
         volumes:

@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-ARG TOKEN
+ARG DOPPLER_TOKEN
 
 # INSTALL NGINX
 RUN apt-get update -y \
@@ -79,5 +79,5 @@ RUN chmod +x /etc/entrypoint.sh
 WORKDIR /var/www/app
 
 EXPOSE 80 443
-#ENTRYPOINT ["doppler", "run", "--"]
+ENTRYPOINT ["doppler", "run", "--"]
 CMD ["/etc/entrypoint.sh"]

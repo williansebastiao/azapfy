@@ -24,7 +24,12 @@ class UserService
         return Response::output(StatusCode::CREATED, 'Usuário criado com sucesso', $response);
     }
 
-    public function verify(int $id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws UserNotFound
+     */
+    public function verify(int $id): JsonResponse
     {
         $userRepository = new UserRepository();
         $user = $userRepository->findByID($id);

@@ -3,7 +3,7 @@
 namespace App\Business\Services;
 
 use App\Business\Enum\StatusCode;
-use App\Exceptions\UserNotFound;
+use App\Exceptions\UserException;
 use App\Helpers\Response;
 use App\Business\Repositories\UserRepository;
 use Illuminate\Auth\Events\Verified;
@@ -27,7 +27,7 @@ class UserService
     /**
      * @param int $id
      * @return JsonResponse
-     * @throws UserNotFound
+     * @throws UserException
      */
     public function verify(int $id): JsonResponse
     {
@@ -35,7 +35,7 @@ class UserService
         $user = $userRepository->findByID($id);
 
         if (is_null($user)) {
-            throw new UserNotFound('Usuário não encontrado', StatusCode::BAD_REQUEST);
+            throw new UserException('Usuário não encontrado', StatusCode::BAD_REQUEST);
         }
 
         if ($user->hasVerifiedEmail()) {

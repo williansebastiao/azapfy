@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Business\Enum\StatusCode;
 use App\Business\Services\UserService;
-use App\Exceptions\UserNotFound;
+use App\Exceptions\UserException;
 use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validators\UserRequest;

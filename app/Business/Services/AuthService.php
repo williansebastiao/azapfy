@@ -4,7 +4,7 @@ namespace App\Business\Services;
 
 use App\Business\Enum\StatusCode;
 use App\Business\Repositories\UserRepository;
-use App\Exceptions\UserNotFound;
+use App\Exceptions\UserException;
 use App\Helpers\Response;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +16,7 @@ class AuthService
      * @param string $email
      * @param string $password
      * @return JsonResponse
-     * @throws UserNotFound
+     * @throws UserException
      */
     public function auth(string $email, string $password): JsonResponse
     {
@@ -24,12 +24,12 @@ class AuthService
 
         $user = $query->first();
         if (is_null($user ) || !Hash::check($password, $user->password)) {
-            throw new UserNotFound('Credencial inválida', StatusCode::BAD_REQUEST);
+            throw new UserException('Credencial inválida', StatusCode::BAD_REQUEST);
         }
 
         $isActive = $query->where('active', 0)->exists();
         if($isActive) {
-            throw new UserNotFound('Usuário não verificado', StatusCode::BAD_REQUEST);
+            throw new UserException('Usuário não verificado', StatusCode::BAD_REQUEST);
         }
         $token = $user->createToken($user->id);
         $plainToken = $token->plainTextToken;

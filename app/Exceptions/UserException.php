@@ -2,10 +2,11 @@
 
 namespace App\Exceptions;
 use Exception;
-class UnverifiedUser extends Exception
+
+class UserException extends Exception
 {
 
-    public function __construct($message = "unverified user", $code = 0, Exception $previous = null)
+    public function __construct($message = "User not found", $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
@@ -15,4 +16,3 @@ class UnverifiedUser extends Exception
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 }
-

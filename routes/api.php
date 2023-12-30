@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/', function () {
     return \App\Helpers\Response::output(\App\Business\Enum\StatusCode::SUCCESS, "It's running.... :)");
 });
@@ -31,6 +27,6 @@ Route::group(['prefix' => 'user'], function(){
    Route::post('store', [\App\Http\Controllers\Api\UserController::class, 'store']);
 });
 
-Route::middleware('auth:sanctum', function(){
-
+Route::group(['prefix' => 'invoice', 'middleware' => 'auth:sanctum'], function(){
+   Route::get('/', [\App\Http\Controllers\Api\InvoiceController::class, 'index']);
 });

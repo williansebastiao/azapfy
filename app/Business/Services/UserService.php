@@ -2,22 +2,24 @@
 
 namespace App\Business\Services;
 
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Business\Enum\StatusCode;
+use App\Helpers\Response;
+use App\Business\Repositories\UserRepository;
+use Illuminate\Http\JsonResponse;
 
 class UserService
 {
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @return UserRepository
+     */
+    public function store(array $data): JsonResponse
     {
-
-    }
-
-    public function store(array $data)
-    {
-        $user = User::create($data);
-        $user->sendEmailVerificationNotification();
-        return $user;
+        $user = new UserRepository();
+        $response = $user->store($data);
+        $response->sendEmailVerificationNotification();
+        return Response::output(StatusCode::CREATED, 'Usuário criado com sucesso', $response);
     }
 
 }

@@ -10,17 +10,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Validators\UserRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
-    public function __construct()
-    {
-
-    }
-
-    public function store(UserRequest $request)
+    /**
+     * @param UserRequest $request
+     * @return \App\Business\Repositories\UserRepository|\Illuminate\Http\JsonResponse
+     */
+    public function store(UserRequest $request): JsonResponse
     {
         try {
             $userService = new UserService();

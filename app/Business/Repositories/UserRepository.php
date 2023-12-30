@@ -4,6 +4,7 @@ namespace App\Business\Repositories;
 
 use App\Business\Abstract\Abs;
 use App\Models\User;
+use http\Message\Body;
 
 class UserRepository extends Abs
 {
@@ -23,14 +24,23 @@ class UserRepository extends Abs
         // TODO: Implement findAll() method.
     }
 
-    public function findByID()
+    /**
+     * @param int $id
+     * @return User|null
+     */
+    public function findByID(int $id): User|null
     {
-        // TODO: Implement findByID() method.
+        return User::find($id);
     }
 
-    public function update()
+    /**
+     * @param int $id
+     * @param array $data
+     * @return bool
+     */
+    public function update(int $id, array $data): bool
     {
-        // TODO: Implement update() method.
+        return User::find($id)->update($data);
     }
 
     public function destroy()

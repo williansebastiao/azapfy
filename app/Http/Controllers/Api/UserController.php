@@ -18,7 +18,7 @@ class UserController extends Controller
 
     /**
      * @param UserRequest $request
-     * @return \App\Business\Repositories\UserRepository|\Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(UserRequest $request): JsonResponse
     {
@@ -30,22 +30,18 @@ class UserController extends Controller
         }
     }
 
-    public function verify(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function verify(Request $request): JsonResponse
     {
 
-        $user = User::find($request->id);
-
-        if (is_null($user)) {
-            throw new UserNotFound('Usuário não encontrado', StatusCode::BAD_REQUEST);
+        try {
+            $userService = new UserService();
+            return $userService->verify($request->id);
+        } catch (\Exception $e) {
+            return Response::output($e->getCode(), $e->getMessage());
         }
-
-        if ($user->hasVerifiedEmail()) {
-            return Response::output(StatusCode::SUCCESS, 'Este e-mail já foi verificado');
-        }
-        if ($user->markEmailAsVerified()) {
-            event(new Verified($user));
-        }
-
-        return Response::output(StatusCode::SUCCESS, 'E-mail verificado');
     }
 }

@@ -22,7 +22,7 @@ Route::get('/', function () {
     return \App\Helpers\Response::output(\App\Business\Enum\StatusCode::SUCCESS, "It's running.... :)");
 });
 
-//Route::get('/email/resend', 'Api\VerificationController@resend')->name('verification.resend');
+//Route::get('/email/resend', [\App\Http\Controllers\Api\UserController::class, 'resend'])->name('verification.resend');
 Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\Api\UserController::class, 'verify'])->name('verification.verify');
 
 Route::group(['prefix' => 'user'], function(){

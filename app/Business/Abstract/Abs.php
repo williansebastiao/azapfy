@@ -6,7 +6,7 @@ abstract class Abs
 {
     abstract public function store(array $data);
     abstract public function findAll();
-    abstract public function findByID();
-    abstract public function update();
+    abstract public function findByID(int $id);
+    abstract public function update(int $id, array $data);
     abstract public function destroy();
 }

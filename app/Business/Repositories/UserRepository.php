@@ -2,11 +2,10 @@
 
 namespace App\Business\Repositories;
 
-use App\Business\Abstract\Abs;
+use App\Business\Interface\UserInterface;
 use App\Models\User;
-use http\Message\Body;
 
-class UserRepository extends Abs
+class UserRepository implements UserInterface
 {
 
     /**

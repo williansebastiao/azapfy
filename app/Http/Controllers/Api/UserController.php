@@ -36,7 +36,6 @@ class UserController extends Controller
      */
     public function verify(Request $request): JsonResponse
     {
-
         try {
             $userService = new UserService();
             return $userService->verify($request->id);

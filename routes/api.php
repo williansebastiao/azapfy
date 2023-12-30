@@ -32,5 +32,5 @@ Route::group(['prefix' => 'user'], function(){
 });
 
 Route::middleware('auth:sanctum', function(){
-    
+
 });

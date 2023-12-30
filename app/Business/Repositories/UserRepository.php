@@ -19,11 +19,6 @@ class UserRepository implements UserInterface
         return $user->create($data);
     }
 
-    public function findAll()
-    {
-        // TODO: Implement findAll() method.
-    }
-
     /**
      * @param int $id
      * @return User|null
@@ -41,10 +36,5 @@ class UserRepository implements UserInterface
     public function update(int $id, array $data): bool
     {
         return User::find($id)->update($data);
-    }
-
-    public function destroy()
-    {
-        // TODO: Implement destroy() method.
     }
 }

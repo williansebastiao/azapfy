@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return \App\Helpers\Response::output(\App\Business\Enum\StatusCode::SUCCESS, 'This application runs only with API');
 });

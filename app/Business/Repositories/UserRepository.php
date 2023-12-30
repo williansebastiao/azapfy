@@ -4,6 +4,7 @@ namespace App\Business\Repositories;
 
 use App\Business\Interface\UserInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserRepository implements UserInterface
 {

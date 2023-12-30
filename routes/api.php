@@ -25,6 +25,12 @@ Route::get('/', function () {
 //Route::get('/email/resend', [\App\Http\Controllers\Api\UserController::class, 'resend'])->name('verification.resend');
 Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\Api\UserController::class, 'verify'])->name('verification.verify');
 
+Route::post('auth', [\App\Http\Controllers\Api\AuthController::class, 'auth']);
+
 Route::group(['prefix' => 'user'], function(){
    Route::post('store', [\App\Http\Controllers\Api\UserController::class, 'store']);
+});
+
+Route::middleware('auth:sanctum', function(){
+    
 });

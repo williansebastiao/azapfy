@@ -8,6 +8,12 @@ use Illuminate\Http\JsonResponse;
 class Response
 {
 
+    /**
+     * @param int $statusCode
+     * @param string $message
+     * @param array|object $data
+     * @return JsonResponse
+     */
     static function output(int $statusCode, string $message, array|object $data = []): JsonResponse
     {
         $code = $statusCode === 0 ? StatusCode::UNPROCESSABLE_ENTITY : $statusCode;

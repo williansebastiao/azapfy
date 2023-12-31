@@ -48,6 +48,18 @@ services:
             - db
         networks:
             - azapfy
+    rabbitmq:
+        image: rabbitmq:management
+        container_name: azapfy-rabbitmq
+        restart: unless-stopped
+        environment:
+            RABBITMQ_DEFAULT_USER: 'azapfy'
+            RABBITMQ_DEFAULT_PASS: '123456'
+        ports:
+            - "${RABBITMQ_PORT:-5672}:5672"
+            - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+        networks:
+            - azapfy
 networks:
     azapfy:
         driver: bridge

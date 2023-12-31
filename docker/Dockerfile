@@ -42,6 +42,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
 # DOCKER INSTALL EXTENSIONS
 RUN docker-php-ext-install pdo_mysql mbstring iconv
 RUN docker-php-ext-install intl
+RUN docker-php-ext-install bcmath
 
 # CLEAR CACHE
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

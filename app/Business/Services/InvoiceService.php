@@ -59,7 +59,7 @@ class InvoiceService
             throw new InvoiceException('Ocorreu um erro ao salvar os dados', StatusCode::INTERNAL_SERVER_ERROR);
         }
 
-        Mail::to(auth()->user()->email)->send(new Invoice($invoiceDTO));
+        Mail::to(auth()->user()->email)->queue(new Invoice($invoiceDTO));
         return $saved;
     }
 

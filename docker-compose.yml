@@ -48,7 +48,7 @@ services:
             - db
         networks:
             - azapfy
-    rabbitmq:
+    rabbit:
         image: rabbitmq:management
         container_name: azapfy-rabbitmq
         restart: unless-stopped

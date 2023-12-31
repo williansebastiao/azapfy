@@ -7,6 +7,7 @@ use App\Helpers\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class InvoiceRequest extends FormRequest
 {
@@ -25,8 +26,13 @@ class InvoiceRequest extends FormRequest
      */
     public function rules(): array
     {
+        $invoiceId = $this->route('id');
         return [
-            'document_code' => 'required|size:9|unique:invoices,document_code',
+            'document_code' => [
+                'required',
+                'size:9',
+                Rule::unique('invoices', 'document_code')->ignore($invoiceId),
+            ],
             'amount' => 'required',
             'date_of_issue' => 'required|date_format:d/m/Y',
             'document_sender' => 'required|size:18',

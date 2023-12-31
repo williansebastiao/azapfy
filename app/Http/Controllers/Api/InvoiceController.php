@@ -29,28 +29,49 @@ class InvoiceController extends Controller
      * @param InvoiceRequest $request
      * @return JsonResponse
      */
-    public function store(InvoiceRequest $request)
+    public function store(InvoiceRequest $request): JsonResponse
     {
         try {
             $invoiceService = new InvoiceService();
-            return $invoiceService->store($request->validated());
+            return Response::output(StatusCode::CREATED, 'Registro salvo com sucesso', $invoiceService->store($request->validated()));
         } catch (\Exception $e) {
             return Response::output($e->getCode(), $e->getMessage());
         }
     }
 
-    public function show($id)
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
     {
-
+        $invoiceRepository = new InvoiceRepository();
+        return Response::output(StatusCode::SUCCESS, 'Registro encontrado', $invoiceRepository->show($id));
     }
 
-    public function update($id, InvoiceRequest $request)
+    /**
+     * @param $id
+     * @param InvoiceRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, InvoiceRequest $request): JsonResponse
     {
-
+        try {
+            $invoiceService = new InvoiceService();
+            return Response::output(StatusCode::SUCCESS, 'Registro atualizado', $invoiceService->update($id, $request->validated()));
+        } catch (\Exception $e) {
+            return Response::output($e->getCode(), $e->getMessage());
+        }
     }
 
     public function destroy ($id)
     {
-
+        try {
+            $invoiceRepository = new InvoiceRepository();
+            $invoiceRepository->destroy($id);
+            return Response::output(StatusCode::SUCCESS, 'Registro excluído');
+        } catch (\Exception $e) {
+            return Response::output($e->getCode(), $e->getMessage());
+        }
     }
 }

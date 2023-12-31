@@ -4,6 +4,7 @@ namespace App\Business\Repositories;
 
 use App\Business\Interface\InvoiceInterface;
 use App\Models\Invoice;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class InvoiceRepository implements InvoiceInterface
@@ -27,6 +28,30 @@ class InvoiceRepository implements InvoiceInterface
     public function store(array $data): Invoice
     {
         return Invoice::create($data);
+    }
+
+    /**
+     * @param int $id
+     * @return Invoice
+     */
+    public function show(int $id): Invoice
+    {
+        return Invoice::with('user')->find($id);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return bool
+     */
+    public function update(int $id, array $data): bool
+    {
+        return Invoice::find($id)->update($data);
+    }
+
+    public function destroy(int $id): bool
+    {
+        return Invoice::find($id)->delete();
     }
 
 }

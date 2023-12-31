@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\Business\Enum\StatusCode;
 use App\Exceptions\AmountException;
-use App\Exceptions\CnpjException;
+use App\Exceptions\InvoiceException;
 
 class Validators
 {
@@ -59,13 +59,13 @@ class Validators
     /**
      * @param bool $value
      * @param string $cnpj
-     * @return CnpjException|string
-     * @throws CnpjException
+     * @return InvoiceException|string
+     * @throws InvoiceException
      */
-    private function responseCnpj(bool $value, string $cnpj): CnpjException|string
+    private function responseCnpj(bool $value, string $cnpj): InvoiceException|string
     {
         if (!$value) {
-            throw new CnpjException('CNPJ inválido', StatusCode::UNPROCESSABLE_ENTITY);
+            throw new InvoiceException('CNPJ inválido', StatusCode::UNPROCESSABLE_ENTITY);
         }
         return Str::clearSpecialCharacters($cnpj);
     }

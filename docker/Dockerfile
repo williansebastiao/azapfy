@@ -11,6 +11,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y \
     git \
     curl \
+    libicu-dev \
     build-essential \
     make \
     sudo \
@@ -40,6 +41,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
 
 # DOCKER INSTALL EXTENSIONS
 RUN docker-php-ext-install pdo_mysql mbstring iconv
+RUN docker-php-ext-install intl
 
 # CLEAR CACHE
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*

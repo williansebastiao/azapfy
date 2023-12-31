@@ -9,7 +9,6 @@ use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validators\InvoiceRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
@@ -26,6 +25,10 @@ class InvoiceController extends Controller
         }
     }
 
+    /**
+     * @param InvoiceRequest $request
+     * @return JsonResponse
+     */
     public function store(InvoiceRequest $request)
     {
         try {
@@ -34,5 +37,20 @@ class InvoiceController extends Controller
         } catch (\Exception $e) {
             return Response::output($e->getCode(), $e->getMessage());
         }
+    }
+
+    public function show($id)
+    {
+
+    }
+
+    public function update($id, InvoiceRequest $request)
+    {
+
+    }
+
+    public function destroy ($id)
+    {
+
     }
 }

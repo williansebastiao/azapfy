@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 use Exception;
 
-class CnpjException extends Exception
+class InvoiceException extends Exception
 {
     public function __construct($message = "CNPJ is not correct", $code = 0, Exception $previous = null)
     {

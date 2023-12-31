@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use NumberFormatter;
+
 class Str
 {
 
@@ -39,6 +41,12 @@ class Str
             $mask[strpos($mask, "#")] = $str[$i];
         }
         return $mask;
+    }
+
+    public static function moneyFormat(float $value): string
+    {
+        $formatter = new NumberFormatter('pt_BR', NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($value, 'BRL');
     }
 
 }

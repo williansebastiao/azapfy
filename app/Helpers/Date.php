@@ -18,7 +18,7 @@ class Date
      * @param string $date
      * @return string
      */
-    function brazil(string $date): string
+    static function brazil(string $date): string
     {
         return date('d/m/Y', strtotime($date));
     }

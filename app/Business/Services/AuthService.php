@@ -23,7 +23,7 @@ class AuthService
         $query = User::where('email', $email);
 
         $user = $query->first();
-        if (is_null($user ) || !Hash::check($password, $user->password)) {
+        if (is_null($user) || !Hash::check($password, $user->password)) {
             throw new UserException('Credencial inválida', StatusCode::BAD_REQUEST);
         }
 
@@ -31,9 +31,8 @@ class AuthService
         if($isActive) {
             throw new UserException('Usuário não verificado', StatusCode::BAD_REQUEST);
         }
-        $token = $user->createToken($user->id);
-        $plainToken = $token->plainTextToken;
+        $token = $user->createToken($user->id)->plainTextToken;
 
-        return Response::output(StatusCode::SUCCESS, 'Usuário autenticado', ['token' => $plainToken]);
+        return Response::output(StatusCode::SUCCESS, 'Usuário autenticado', ['token' => $token]);
     }
 }

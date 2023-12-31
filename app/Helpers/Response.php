@@ -16,7 +16,7 @@ class Response
      */
     static function output(int $statusCode, string $message, array|object $data = []): JsonResponse
     {
-        $code = $statusCode === 0 ? StatusCode::UNPROCESSABLE_ENTITY : $statusCode;
+        $code = $statusCode === 0 || $statusCode === 23000 ? StatusCode::UNPROCESSABLE_ENTITY : $statusCode;
         return response()->json([
             'status_code' => $code,
             'message' => $message,

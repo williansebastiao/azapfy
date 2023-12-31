@@ -6,20 +6,20 @@ class Str
 {
 
     /**
-     * @param $value
+     * @param string $value
      * @return string
      */
-    static function clearSpecialCharacters($value): string
+    static function clearSpecialCharacters(string $value): string
     {
         $str = str_replace('-', '', $value);
         return preg_replace('/[^A-Za-z0-9\-]/', '', $str);
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return string
      */
-    static function monetary($value): string
+    static function monetary(string $value): string
     {
         $str = str_replace('R$ ', '', $value);
         $str = str_replace('.', '', $str);
@@ -28,11 +28,11 @@ class Str
     }
 
     /**
-     * @param $mask
-     * @param $str
+     * @param string $mask
+     * @param string $str
      * @return string
      */
-    static function mask($mask, $str): string
+    static function mask(string $mask, string $str): string
     {
         $str = str_replace(" ", "", $str);
         for ($i = 0; $i < strlen($str); $i++) {

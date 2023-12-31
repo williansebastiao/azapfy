@@ -29,4 +29,5 @@ Route::group(['prefix' => 'user'], function(){
 
 Route::group(['prefix' => 'invoice', 'middleware' => 'auth:sanctum'], function(){
    Route::get('/', [\App\Http\Controllers\Api\InvoiceController::class, 'index']);
+   Route::post('store', [\App\Http\Controllers\Api\InvoiceController::class, 'store']);
 });

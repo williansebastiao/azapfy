@@ -1,5 +1,8 @@
 FROM php:8.2-fpm
 
+# Crie um novo grupo e usuário
+WORKDIR /var/www/app
+
 # INSTALL NGINX
 RUN apt-get update -y \
     && apt-get install -y nginx
@@ -42,6 +45,8 @@ RUN docker-php-ext-install pdo_mysql mbstring iconv
 RUN docker-php-ext-install intl
 RUN docker-php-ext-install bcmath
 
+RUN docker-php-ext-install sockets
+
 # CLEAR CACHE
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -68,9 +73,6 @@ RUN mkdir -p /var/run/php
 
 # SET PERMISSION AND EXECUTE
 RUN chmod +x /etc/entrypoint.sh
-
-# Crie um novo grupo e usuário
-WORKDIR /var/www/app
 
 EXPOSE 80 443
 CMD ["/etc/entrypoint.sh"]

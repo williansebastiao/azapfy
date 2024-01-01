@@ -42,8 +42,8 @@ DB_PASSWORD=123456
 Após isso, rode os seguintes comandos:
 
 ```bash
-  php artisan key:generate
-  make start
+make start
+php artisan key:generate  
 ```
 
 ## Arquivo makefile
@@ -81,6 +81,15 @@ Você irá precisar rodar as migrations, para isso execute o sguinte comando:
 
 Acesse `http://localhost:8000/api` para ver ser o projeto está rodando
 
+## PHPMyAdmin
+
+Acesse: `http://localhost:8001/`
+
+## RabbitMQ
+
+Acess: `http://localhost:15672/`
+
+Todas as senhas encontram-se no docker-compose.yml e .env.
 ## Débito técnicos
 
 - Teste unitários

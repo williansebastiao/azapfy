@@ -1,7 +1,5 @@
 FROM php:8.2-fpm
 
-ARG DOPPLER_TOKEN
-
 # INSTALL NGINX
 RUN apt-get update -y \
     && apt-get install -y nginx
@@ -50,13 +48,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # INSTALL COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# INSTALL DOPPLER CLI
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg && \
-    curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | gpg --dearmor -o /usr/share/keyrings/doppler-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/doppler-archive-keyring.gpg] https://packages.doppler.com/public/cli/deb/debian any-version main" | tee /etc/apt/sources.list.d/doppler-cli.list && \
-    apt-get update && \
-    apt-get -y install doppler
-
 # CHANGE CONF NGINX
 COPY /docker/config/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY /docker/config/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -82,5 +73,4 @@ RUN chmod +x /etc/entrypoint.sh
 WORKDIR /var/www/app
 
 EXPOSE 80 443
-ENTRYPOINT ["doppler", "run", "--"]
-CMD ["/etc/entrypoint.sh"]
+ENTRYPOINT ["/etc/entrypoint.sh"]

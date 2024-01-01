@@ -4,7 +4,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 DOCKER_COMPOSE := docker-compose
 
-.PHONY: help start build stop migrate seed storage-permission container
+.PHONY: help start build stop refresh migrate seed storage-permission container
 
 help:
 	@echo "AZAPFY Makefile"
@@ -23,11 +23,14 @@ build: ## Build all containers
 stop: ## Stop all containers
 	$(DOCKER_COMPOSE) down
 
+refresh: ## Refresh all migration
+	$(DOCKER_COMPOSE) exec app php artisan migrate:refresh
+
 migrate: ## Make migration
-	$(DOCKER_COMPOSE) exec app doppler run -- php artisan migrate
+	$(DOCKER_COMPOSE) exec app php artisan migrate
 
 seed: ## Run seeder
-	$(DOCKER_COMPOSE) exec app doppler run -- php artisan db:seed
+	$(DOCKER_COMPOSE) exec app php artisan db:seed
 
 storage-permission: ## Set permission for storage folder
 	$(DOCKER_COMPOSE) exec app chmod -R 777 storage

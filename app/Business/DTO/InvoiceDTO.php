@@ -21,7 +21,7 @@ class InvoiceDTO
     {
         $this->user_id = auth()->user()->id;
         $this->document_code = $document_code;
-        $this->amount = $amount;
+        $this->amount = Str::monetary($amount);
         $this->date_of_issue = Date::database($date_of_issue);
         $this->document_sender = Str::clearSpecialCharacters($document_sender);
         $this->sender_name = $sender_name;

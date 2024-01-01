@@ -8,6 +8,7 @@ use App\Business\Services\InvoiceService;
 use App\Helpers\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validators\InvoiceRequest;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
 
 class InvoiceController extends Controller

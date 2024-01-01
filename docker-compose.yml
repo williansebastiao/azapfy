@@ -7,10 +7,8 @@ services:
         image: azapfy:php8.2-nginx
         container_name: azapfy-app
         restart: unless-stopped
-        environment:
-            DOPPLER_TOKEN: ${TOKEN}
         ports:
-            - "${APP_PORT_NGINX:-8000}:80"
+            - "8000:80"
         volumes:
             - .:/var/www/app
         networks:
@@ -27,7 +25,7 @@ services:
         volumes:
             - ./.database:/var/lib/mysql
         ports:
-            - "${DB_PORT:-3307}:3306"
+            - "3307:3306"
         expose:
             - 3307
         depends_on:
@@ -43,7 +41,7 @@ services:
             PMA_PORT: 3306
             PMA_PMADB: azapfy
         ports:
-            - "${APP_PORT:-8001}:80"
+            - "8001:80"
         depends_on:
             - db
         networks:
@@ -56,8 +54,8 @@ services:
             RABBITMQ_DEFAULT_USER: 'azapfy'
             RABBITMQ_DEFAULT_PASS: '123456'
         ports:
-            - "${RABBITMQ_PORT:-5672}:5672"
-            - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+            - "5672:5672"
+            - "15672:15672"
         networks:
             - azapfy
 networks:

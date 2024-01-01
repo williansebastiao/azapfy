@@ -26,36 +26,11 @@ class InvoiceService
      */
     public function store(array $data): Model
     {
-        $today = Carbon::now('America/Sao_Paulo');
-        $dateOfIssue = Carbon::createFromFormat('Y-m-d', Date::database($data['date_of_issue']));
-        $diff = $dateOfIssue->greaterThan($today);
-
-        $amount = Str::monetary($data['amount']);
-        if (!is_numeric($amount)) {
-            throw new AmountException('Valor incorreto', StatusCode::UNPROCESSABLE_ENTITY);
-        }
-
-        if ($amount <= 0){
-            throw new AmountException('Não aceitamos valores menores ou igual a zero', StatusCode::UNPROCESSABLE_ENTITY);
-        }
-
-        if (!Validators::cnpj($data['document_sender']))
-        {
-            throw new InvoiceException('O CNPJ do remetente está incorreto', StatusCode::UNPROCESSABLE_ENTITY);
-        }
-
-        if (!Validators::cnpj($data['document_transporter']))
-        {
-            throw new InvoiceException('O CNPJ da transportadora está incorreto', StatusCode::UNPROCESSABLE_ENTITY);
-        }
-
-        if ($diff) {
-            throw new InvoiceException('A data de emissão está incorreta', StatusCode::UNPROCESSABLE_ENTITY);
-        }
+        $this->validateFields($data);
 
         $invoiceDTO = new InvoiceDTO(
             $data['document_code'],
-            $amount,
+            $data['amount'],
             $data['date_of_issue'],
             $data['document_sender'],
             $data['sender_name'],
@@ -82,6 +57,40 @@ class InvoiceService
      */
     public function update(int $id, array $data): Model
     {
+
+        $this->validateFields($data);
+
+        $invoiceDTO = new InvoiceDTO(
+            $data['document_code'],
+            $data['amount'],
+            $data['date_of_issue'],
+            $data['document_sender'],
+            $data['sender_name'],
+            $data['document_transporter'],
+            $data['transporter_name'],
+        );
+
+        $invoiceRepository = new InvoiceRepository();
+        $saved = $invoiceRepository->update($id, (array) $invoiceDTO);
+        if (!$saved) {
+            throw new InvoiceException('Ocorreu um erro ao salvar os dados', StatusCode::INTERNAL_SERVER_ERROR);
+        }
+
+        return $invoiceRepository->show($id);
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     * @throws AmountException
+     * @throws InvoiceException
+     */
+    private function validateFields(array $data): void
+    {
+        $today = Carbon::now('America/Sao_Paulo');
+        $dateOfIssue = Carbon::createFromFormat('Y-m-d', Date::database($data['date_of_issue']));
+        $diff = $dateOfIssue->greaterThan($today);
+
         $amount = Str::monetary($data['amount']);
         if (!is_numeric($amount)) {
             throw new AmountException('Valor incorreto', StatusCode::UNPROCESSABLE_ENTITY);
@@ -101,22 +110,8 @@ class InvoiceService
             throw new InvoiceException('O CNPJ da transportadora está incorreto', StatusCode::UNPROCESSABLE_ENTITY);
         }
 
-        $invoiceDTO = new InvoiceDTO(
-            $data['document_code'],
-            $amount,
-            $data['date_of_issue'],
-            $data['document_sender'],
-            $data['sender_name'],
-            $data['document_transporter'],
-            $data['transporter_name'],
-        );
-
-        $invoiceRepository = new InvoiceRepository();
-        $saved = $invoiceRepository->update($id, (array) $invoiceDTO);
-        if (!$saved) {
-            throw new InvoiceException('Ocorreu um erro ao salvar os dados', StatusCode::INTERNAL_SERVER_ERROR);
+        if ($diff) {
+            throw new InvoiceException('A data de emissão está incorreta', StatusCode::UNPROCESSABLE_ENTITY);
         }
-
-        return $invoiceRepository->show($id);
     }
 }

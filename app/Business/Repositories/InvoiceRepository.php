@@ -49,6 +49,10 @@ class InvoiceRepository implements InvoiceInterface
         return Invoice::find($id)->update($data);
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public function destroy(int $id): bool
     {
         return Invoice::find($id)->delete();

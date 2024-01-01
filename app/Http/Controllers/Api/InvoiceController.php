@@ -65,7 +65,11 @@ class InvoiceController extends Controller
         }
     }
 
-    public function destroy ($id)
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function destroy ($id): JsonResponse
     {
         try {
             $invoiceRepository = new InvoiceRepository();

@@ -73,4 +73,4 @@ RUN chmod +x /etc/entrypoint.sh
 WORKDIR /var/www/app
 
 EXPOSE 80 443
-ENTRYPOINT ["/etc/entrypoint.sh"]
+CMD ["/etc/entrypoint.sh"]

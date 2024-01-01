@@ -46,6 +46,30 @@ Após isso, rode os seguintes comandos:
   make start
 ```
 
+## Arquivo makefile
+
+Caso não tenha instalado o pacote makefile, você pode seguir os passos para realizar a instalação.
+
+Se desejar utilizar os comandos docker, pode fazer isso manualmente, basta ler o arquivo makefile.
+
+**Ubuntu**
+
+```bash
+sudo apt-get install build-essential
+sudo apt-get -y install make
+make -v
+```
+
+**Mac OSX**
+```bash
+https://formulae.brew.sh/formula/make
+```
+
+**Windows**
+```bash
+https://earthly.dev/blog/makefiles-on-windows/
+```
+
 ## Migrations
 
 Você irá precisar rodar as migrations, para isso execute o sguinte comando:

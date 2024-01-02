@@ -42,7 +42,7 @@ DB_PASSWORD=123456
 Após isso, rode os seguintes comandos:
 
 ```bash
-make start
+make build
 php artisan key:generate  
 ```
 

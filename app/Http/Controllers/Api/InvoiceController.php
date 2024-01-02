@@ -46,8 +46,12 @@ class InvoiceController extends Controller
      */
     public function show($id): JsonResponse
     {
-        $invoiceRepository = new InvoiceRepository();
-        return Response::output(StatusCode::SUCCESS, 'Registro encontrado', $invoiceRepository->show($id));
+        try {
+            $invoiceRepository = new InvoiceRepository();
+            return Response::output(StatusCode::SUCCESS, 'Registro encontrado', $invoiceRepository->show($id));
+        } catch (\Exception $e) {
+            return Response::output($e->getCode(), $e->getMessage());
+        }
     }
 
     /**
